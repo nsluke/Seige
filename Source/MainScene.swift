@@ -19,9 +19,12 @@ class MainScene: CCNode {
     //Constants
     var SW = CCDirector.sharedDirector().viewSize().width
     
+    //values
+    var enemyHealth:Int = 100
+    
     func didLoadFromCCB () {
         userInteractionEnabled = true
-        
+        healthLabel.string = toString(enemyHealth)
     }
     
     override func update(delta: CCTime) {
@@ -45,8 +48,6 @@ class MainScene: CCNode {
         newProjectile.launch()
         projectiles.append(newProjectile)
         
-        
-        
         let launchDirection = CGPoint(x: 1, y: 0)
         let force = ccpMult(launchDirection, 8000)
         
@@ -62,8 +63,12 @@ class MainScene: CCNode {
     }
     
     
-    func ccPhysicsCollisionBegin(pair: CCPhysicsCollisionPair!, hero: CCNode!, flag: CCNode!) -> Bool {
+    func ccPhysicsCollisionBegin(pair: CCPhysicsCollisionPair!, projectile: CCNode!, enemy: CCNode!) -> Bool {
         
+        println("fizzix")
+//        projectiles.removeAtIndex(0)
+//        player.removeChildByName("newProjectile")
+//        
         return true
     }
     
