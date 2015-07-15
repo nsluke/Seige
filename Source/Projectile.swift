@@ -11,8 +11,7 @@ import UIKit
 class Projectile: CCNode {
    
     func launch(){
-        physicsBody.velocity = ccp(1000, 0)
-
+        physicsBody.velocity = ccp(500, 0)
     }
     
     
