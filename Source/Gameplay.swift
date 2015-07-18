@@ -55,6 +55,13 @@ class Gameplay: CCNode , CCPhysicsCollisionDelegate {
         
     }
     
+    func storeButton () {
+
+        let storeScene = CCBReader.loadAsScene("Store")
+        CCDirector.sharedDirector().replaceScene(storeScene)
+        
+    }
+    
     func spawnAProjectile () -> Projectile {
         //load in projectile
         let newProjectile = CCBReader.load("Projectile") as! Projectile
