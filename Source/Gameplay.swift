@@ -46,19 +46,21 @@ class Gameplay: CCNode , CCPhysicsCollisionDelegate {
     }
     
     
-    //Launch button Methods
+    //button Methods
+    
+    func storeButton () {
+        
+        let storeScene = CCBReader.loadAsScene("Store")
+        CCDirector.sharedDirector().replaceScene(storeScene)
+        
+    }
+    
+    
     func fire () {
         launchBeam(spawnAProjectile())
     }
     
     func launchBeam (projectile: Projectile) {
-        
-    }
-    
-    func storeButton () {
-
-        let storeScene = CCBReader.loadAsScene("Store")
-        CCDirector.sharedDirector().replaceScene(storeScene)
         
     }
     
@@ -87,5 +89,7 @@ class Gameplay: CCNode , CCPhysicsCollisionDelegate {
         enemyHealth -= 1
         return true
     }
+    
+    
 
 }

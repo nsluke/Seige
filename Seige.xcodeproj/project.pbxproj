@@ -479,10 +479,10 @@
 			children = (
 				7A40362019DDEF0D007B6E8F /* Platforms */,
 				7A046D7519E84C36004C4763 /* MainScene.swift */,
-				D5A5D1981B5975C7006403A7 /* GameCenterInteractor.swift */,
-				D50313BC1B583153004031D1 /* Store.swift */,
-				D50313BE1B583210004031D1 /* Singleton.swift */,
 				D5790F6C1B56BBFF007506B9 /* Gameplay.swift */,
+				D50313BC1B583153004031D1 /* Store.swift */,
+				D5A5D1981B5975C7006403A7 /* GameCenterInteractor.swift */,
+				D50313BE1B583210004031D1 /* Singleton.swift */,
 				D59567E31B41C9B1009BDD0E /* Projectile.swift */,
 				D352B48019EC608A00829775 /* MetalShaders */,
 			);

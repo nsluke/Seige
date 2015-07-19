@@ -11,10 +11,11 @@ import UIKit
 class Projectile: CCNode {
    
     func launch(){
-        physicsBody.velocity = ccp(500, 0)
+//        physicsBody.velocity = ccp(500, 0)\
+        physicsBody.affectedByGravity = true
+        physicsBody.density = CGFloat(5.0)
+        physicsBody.applyImpulse(ccp(2000,250))
     }
-    
-    
     
     
 }
