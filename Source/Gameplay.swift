@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import GameKit
 
-class Gameplay: CCNode , CCPhysicsCollisionDelegate {
+class Gameplay: CCNode{
    
     
     //Labels
@@ -47,14 +48,12 @@ class Gameplay: CCNode , CCPhysicsCollisionDelegate {
     
     
     //button Methods
-    
     func storeButton () {
         
         let storeScene = CCBReader.loadAsScene("Store")
         CCDirector.sharedDirector().replaceScene(storeScene)
         
     }
-    
     
     func fire () {
         launchBeam(spawnAProjectile())
@@ -81,7 +80,9 @@ class Gameplay: CCNode , CCPhysicsCollisionDelegate {
         return newProjectile
     }
     
-    
+}
+
+extension Gameplay: CCPhysicsCollisionDelegate {
     //Physics
     func ccPhysicsCollisionBegin(pair: CCPhysicsCollisionPair!, projectile: CCNode!, enemy: CCNode!) -> Bool {
         println("fizzix")
@@ -90,6 +91,23 @@ class Gameplay: CCNode , CCPhysicsCollisionDelegate {
         return true
     }
     
-    
+}
 
+
+// MARK: Game Center Handling
+
+extension Gameplay: GKGameCenterControllerDelegate {
+
+    func showLeaderboard() {
+        var viewController = CCDirector.sharedDirector().parentViewController!
+        var gameCenterViewController = GKGameCenterViewController()
+        gameCenterViewController.gameCenterDelegate = self
+        viewController.presentViewController(gameCenterViewController, animated: true, completion: nil)
+    }
+    
+    // Delegate methods
+    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController!) {
+        gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
 }
