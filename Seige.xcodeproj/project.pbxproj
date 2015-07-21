@@ -104,7 +104,7 @@
 		D5790F6D1B56BBFF007506B9 /* Gameplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5790F6C1B56BBFF007506B9 /* Gameplay.swift */; };
 		D59567E41B41C9B1009BDD0E /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59567E31B41C9B1009BDD0E /* Projectile.swift */; };
 		D5A5D1991B5975C7006403A7 /* GameCenterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A5D1981B5975C7006403A7 /* GameCenterInteractor.swift */; };
-		D5A5D19F1B5975E2006403A7 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5A5D19D1B5975E2006403A7 /* GameKit.framework */; };
+		D5A5D19F1B5975E2006403A7 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5A5D19D1B5975E2006403A7 /* GameKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -736,7 +736,7 @@
 						DevelopmentTeam = 6TK8Q4KD6G;
 						SystemCapabilities = {
 							com.apple.GameCenter = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};

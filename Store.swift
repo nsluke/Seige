@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GameKit
 
 class Store: CCNode {
     
@@ -24,6 +25,27 @@ class Store: CCNode {
         let gameplayScene = CCBReader.loadAsScene("Gameplay")
         CCDirector.sharedDirector().replaceScene(gameplayScene)
         
+    }
+    
+    func openGameCenter() {
+        showLeaderboard()
+    }
+    
+}
+
+// MARK: Game Center Handling
+extension Store: GKGameCenterControllerDelegate {
+    
+    func showLeaderboard() {
+        var viewController = CCDirector.sharedDirector().parentViewController!
+        var gameCenterViewController = GKGameCenterViewController()
+        gameCenterViewController.gameCenterDelegate = self
+        viewController.presentViewController(gameCenterViewController, animated: true, completion: nil)
+    }
+    
+    // Delegate methods
+    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController!) {
+        gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
     }
     
 }

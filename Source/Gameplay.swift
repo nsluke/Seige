@@ -7,9 +7,8 @@
 //
 
 import Foundation
-import GameKit
 
-class Gameplay: CCNode{
+class Gameplay: CCNode {
    
     
     //Labels
@@ -34,7 +33,6 @@ class Gameplay: CCNode{
         }
     }
     
-    
     //CCB LifeCycle
     func didLoadFromCCB () {
         userInteractionEnabled = true
@@ -46,7 +44,6 @@ class Gameplay: CCNode{
         
     }
     
-    
     //button Methods
     func storeButton () {
         
@@ -56,14 +53,10 @@ class Gameplay: CCNode{
     }
     
     func fire () {
-        launchBeam(spawnAProjectile())
+        spawnAProjectile()
     }
     
-    func launchBeam (projectile: Projectile) {
-        
-    }
-    
-    func spawnAProjectile () -> Projectile {
+    func spawnAProjectile ()  {
         //load in projectile
         let newProjectile = CCBReader.load("Projectile") as! Projectile
         
@@ -77,7 +70,7 @@ class Gameplay: CCNode{
         let launchDirection = CGPoint(x: 1, y: 0)
         let force = ccpMult(launchDirection, 8000)
         
-        return newProjectile
+        //return newProjectile
     }
     
 }
@@ -89,25 +82,6 @@ extension Gameplay: CCPhysicsCollisionDelegate {
         player.removeChild(projectile)
         enemyHealth -= 1
         return true
-    }
-    
-}
-
-
-// MARK: Game Center Handling
-
-extension Gameplay: GKGameCenterControllerDelegate {
-
-    func showLeaderboard() {
-        var viewController = CCDirector.sharedDirector().parentViewController!
-        var gameCenterViewController = GKGameCenterViewController()
-        gameCenterViewController.gameCenterDelegate = self
-        viewController.presentViewController(gameCenterViewController, animated: true, completion: nil)
-    }
-    
-    // Delegate methods
-    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController!) {
-        gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
     }
     
 }
