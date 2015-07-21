@@ -8,22 +8,19 @@ class MainScene: CCNode{
     }
     
     func setUpGameCenter() {
-        
+
         let gameCenterInteractor = GameCenterInteractor.sharedInstance
+        
         gameCenterInteractor.authenticationCheck()
         
     }
-    
     
     //Button Methods
     func begin () {
         let gameplayScene = CCBReader.loadAsScene("Gameplay")
         CCDirector.sharedDirector().replaceScene(gameplayScene)
-        
     }
     
-
-
 }
 
 // MARK: Game Center Handling

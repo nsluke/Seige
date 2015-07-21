@@ -9,8 +9,7 @@
 import UIKit
 import GameKit
 
-protocol GameCenterInteractorNotifications
-{
+protocol GameCenterInteractorNotifications {
     func willSignIn()
     func didSignIn()
     func failedToSignInWithError(anError:NSError)
@@ -37,15 +36,12 @@ class GameCenterInteractor: NSObject {
     /**
     This is the public method that begins the authentication process for the local player.
     */
-    func authenticationCheck()
-    {
-        if (self.localPlayer.authenticated == false)
-        {
+    func authenticationCheck() {
+        if (self.localPlayer.authenticated == false) {
             //Authenticate the player
             println("The local player is not authenticated.")
             self.authenticateLocalPlayer()
-        } else
-        {
+        } else {
             println("The local player is authenticated")
             // Register the listener
             self.localPlayer.registerListener(self)
@@ -58,34 +54,27 @@ class GameCenterInteractor: NSObject {
     /**
     This is a private method to authenticate the local player with Game Center.
     */
-    private func authenticateLocalPlayer()
-    {
+    private func authenticateLocalPlayer() {
         self.delegate?.willSignIn()
         
         self.localPlayer.authenticateHandler = {(viewController : UIViewController!, error : NSError!) -> Void in
             
-            if (viewController != nil)
-            {
+            if (viewController != nil) {
                 dispatch_async(dispatch_get_main_queue(), {
                     self.showAuthenticationDialogueWhenReasonable(presentingViewController: self.callingViewController!, gameCenterController: viewController)
                 })
             }
                 
-            else if (self.localPlayer.authenticated == true)
-            {
+            else if (self.localPlayer.authenticated == true) {
                 println("Player is Authenticated")
                 self.localPlayer.registerListener(self)
                 self.delegate?.didSignIn()
-            }
-                
-            else
-            {
+            } else {
                 println("User Still Not Authenticated")
                 self.delegate?.failedToSignIn()
             }
             
-            if (error != nil)
-            {
+            if (error != nil) {
                 println("Failed to sign in with error:\(error.localizedDescription).")
                 self.delegate?.failedToSignInWithError(error)
                 // Delegate can take necessary action. For example: present a UIAlertController with the error details.
@@ -100,8 +89,7 @@ class GameCenterInteractor: NSObject {
     :param: presentingViewController The view controller that will present the game center view controller.
     :param: gameCenterController     The game center controller.
     */
-    func showAuthenticationDialogueWhenReasonable(#presentingViewController:UIViewController, gameCenterController:UIViewController)
-    {
+    func showAuthenticationDialogueWhenReasonable(#presentingViewController:UIViewController, gameCenterController:UIViewController) {
         presentingViewController.presentViewController(gameCenterController, animated: true, completion: nil)
     }
 }

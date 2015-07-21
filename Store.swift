@@ -11,20 +11,13 @@ import GameKit
 
 class Store: CCNode {
     
-    
-    
     func didLoadFromCCB () {
-        
-        
-        
+                
     }
-    
-    
     
     func backToGameplay () {
         let gameplayScene = CCBReader.loadAsScene("Gameplay")
         CCDirector.sharedDirector().replaceScene(gameplayScene)
-        
     }
     
     func openGameCenter() {
