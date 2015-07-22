@@ -14,7 +14,7 @@ class Projectile: CCNode {
 //        physicsBody.velocity = ccp(500, 0)\
         physicsBody.affectedByGravity = true
         physicsBody.density = CGFloat(5.0)
-        physicsBody.applyImpulse(ccp(2000,250))
+        physicsBody.applyImpulse(ccp(20000,250))
     }
     
     

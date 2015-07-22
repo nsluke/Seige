@@ -26,18 +26,47 @@ class Gameplay: CCNode {
     //Constants
     var SW = CCDirector.sharedDirector().viewSize().width
     
+    var score: Int! {
+        didSet{
+            GameStateSingleton.sharedInstance.score = score
+        }
+    }
+    
     //values
-    var enemyHealth: Int = 100 {
+    var enemyHealth: Int! {
         didSet{
             healthLabel.string = "\(enemyHealth)"
+            GameStateSingleton.sharedInstance.enemyHealth = enemyHealth
+            
+            if enemyHealth <= 0 {
+                
+                let GameOverScene = CCBReader.loadAsScene("GameOver")
+                CCDirector.sharedDirector().replaceScene(GameOverScene)
+                
+            }
         }
     }
     
     //CCB LifeCycle
     func didLoadFromCCB () {
         userInteractionEnabled = true
-        healthLabel.string = toString(enemyHealth)
         gamePhysicsNode.collisionDelegate = self
+    
+        if GameStateSingleton.sharedInstance.enemyHealth == nil {
+            enemyHealth = 100
+        } else {
+            enemyHealth = GameStateSingleton.sharedInstance.enemyHealth
+        }
+        
+        if GameStateSingleton.sharedInstance.score == nil {
+            score = 0
+        } else {
+            score = GameStateSingleton.sharedInstance.score
+        }
+
+        println(enemyHealth)
+        
+        healthLabel.string = toString(enemyHealth)
     }
     
     override func update(delta: CCTime) {
@@ -71,6 +100,7 @@ class Gameplay: CCNode {
         let force = ccpMult(launchDirection, 8000)
         
         //return newProjectile
+        score = score + 1
     }
     
 }
@@ -80,7 +110,7 @@ extension Gameplay: CCPhysicsCollisionDelegate {
     func ccPhysicsCollisionBegin(pair: CCPhysicsCollisionPair!, projectile: CCNode!, enemy: CCNode!) -> Bool {
         println("fizzix")
         player.removeChild(projectile)
-        enemyHealth -= 1
+        enemyHealth = enemyHealth - 1
         return true
     }
     

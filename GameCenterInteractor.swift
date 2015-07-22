@@ -54,27 +54,34 @@ class GameCenterInteractor: NSObject {
     /**
     This is a private method to authenticate the local player with Game Center.
     */
-    private func authenticateLocalPlayer() {
+    private func authenticateLocalPlayer()
+    {
         self.delegate?.willSignIn()
         
         self.localPlayer.authenticateHandler = {(viewController : UIViewController!, error : NSError!) -> Void in
             
-            if (viewController != nil) {
+            if (viewController != nil)
+            {
                 dispatch_async(dispatch_get_main_queue(), {
-                    self.showAuthenticationDialogueWhenReasonable(presentingViewController: self.callingViewController!, gameCenterController: viewController)
+                    self.showAuthenticationDialogueWhenReasonable(presentingViewController: CCDirector.sharedDirector().parentViewController!, gameCenterController: viewController)
                 })
             }
                 
-            else if (self.localPlayer.authenticated == true) {
+            else if (self.localPlayer.authenticated == true)
+            {
                 println("Player is Authenticated")
                 self.localPlayer.registerListener(self)
                 self.delegate?.didSignIn()
-            } else {
+            }
+                
+            else
+            {
                 println("User Still Not Authenticated")
                 self.delegate?.failedToSignIn()
             }
             
-            if (error != nil) {
+            if (error != nil)
+            {
                 println("Failed to sign in with error:\(error.localizedDescription).")
                 self.delegate?.failedToSignInWithError(error)
                 // Delegate can take necessary action. For example: present a UIAlertController with the error details.
@@ -91,6 +98,22 @@ class GameCenterInteractor: NSObject {
     */
     func showAuthenticationDialogueWhenReasonable(#presentingViewController:UIViewController, gameCenterController:UIViewController) {
         presentingViewController.presentViewController(gameCenterController, animated: true, completion: nil)
+    }
+    
+    func checkForNewHighScores(){
+        
+    }
+    
+    func reportHighScoreToGameCenter(){
+        var scoreReporter = GKScore(leaderboardIdentifier: "SeigeLeaderboard")
+        scoreReporter.value = Int64(GameStateSingleton.sharedInstance.score)
+        var scoreArray: [GKScore] = [scoreReporter]
+        
+        GKScore.reportScores(scoreArray, withCompletionHandler: {(error : NSError!) -> Void in
+            if error != nil {
+                println("Game Center: Timed Score Submission Error")
+            }
+        })
     }
 }
 
