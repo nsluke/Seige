@@ -9,7 +9,6 @@
 import Foundation
 
 class Gameplay: CCNode {
-   
     
     //Labels
     weak var healthLabel:CCLabelTTF!
@@ -26,23 +25,21 @@ class Gameplay: CCNode {
     //Constants
     var SW = CCDirector.sharedDirector().viewSize().width
     
+        //values
     var score: Int! {
         didSet{
             GameStateSingleton.sharedInstance.score = score
         }
     }
     
-    //values
     var enemyHealth: Int! {
         didSet{
             healthLabel.string = "\(enemyHealth)"
             GameStateSingleton.sharedInstance.enemyHealth = enemyHealth
             
             if enemyHealth <= 0 {
-                
                 let GameOverScene = CCBReader.loadAsScene("GameOver")
                 CCDirector.sharedDirector().replaceScene(GameOverScene)
-                
             }
         }
     }
@@ -101,6 +98,7 @@ class Gameplay: CCNode {
         
         //return newProjectile
         score = score + 1
+        
     }
     
 }

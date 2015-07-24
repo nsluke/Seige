@@ -100,9 +100,7 @@ class GameCenterInteractor: NSObject {
         presentingViewController.presentViewController(gameCenterController, animated: true, completion: nil)
     }
     
-    func checkForNewHighScores(){
-        
-    }
+
     
     func reportHighScoreToGameCenter(){
         var scoreReporter = GKScore(leaderboardIdentifier: "SeigeLeaderboard")
@@ -111,7 +109,7 @@ class GameCenterInteractor: NSObject {
         
         GKScore.reportScores(scoreArray, withCompletionHandler: {(error : NSError!) -> Void in
             if error != nil {
-                println("Game Center: Timed Score Submission Error")
+                println("Game Center: Score Submission Error")
             }
         })
     }

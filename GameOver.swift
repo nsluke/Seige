@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import GameKit
 
 class GameOver : CCNode {
     
@@ -16,7 +17,35 @@ class GameOver : CCNode {
         
         fireBallLabel.string = "\(GameStateSingleton.sharedInstance.score) Fireballs"
         
+        GameStateSingleton.sharedInstance.checkHighScore()
+        
+        
     }
     
+    func leaderboard () {
+        showLeaderboard()
+    }
+    
+    func mainMenu () {
+        let mainScene = CCBReader.loadAsScene("MainMenu")
+        CCDirector.sharedDirector().replaceScene(mainScene)
+    }
+
+}
+
+// MARK: Game Center Handling
+extension GameOver: GKGameCenterControllerDelegate {
+    
+    func showLeaderboard() {
+        var viewController = CCDirector.sharedDirector().parentViewController!
+        var gameCenterViewController = GKGameCenterViewController()
+        gameCenterViewController.gameCenterDelegate = self
+        viewController.presentViewController(gameCenterViewController, animated: true, completion: nil)
+    }
+    
+    // Delegate methods
+    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController!) {
+        gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
+    }
     
 }

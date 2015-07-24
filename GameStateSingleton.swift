@@ -11,6 +11,15 @@ import UIKit
 class GameStateSingleton: NSObject {
     
     var score:Int!
+//        = NSUserDefaults.standardUserDefaults().integerForKey("score") {
+//        didSet {
+//            NSUserDefaults.standardUserDefaults().setObject(score, forKey:"score")
+//            NSUserDefaults.standardUserDefaults().synchronize()
+//        }
+//    }
+    
+    
+    
     var enemyHealth:Int!
     
     class var sharedInstance : GameStateSingleton {
@@ -18,6 +27,15 @@ class GameStateSingleton: NSObject {
             static let instance : GameStateSingleton = GameStateSingleton()
         }
         return Static.instance
+    }
+    
+    func checkHighScore () {
+        
+        if score > NSUserDefaults.standardUserDefaults().integerForKey("score") {
+            NSUserDefaults.standardUserDefaults().setObject(score, forKey: "score")
+            GameCenterInteractor.sharedInstance.reportHighScoreToGameCenter()
+        }
+        
     }
     
 }
