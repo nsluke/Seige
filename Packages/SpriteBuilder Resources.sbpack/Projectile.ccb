@@ -325,8 +325,6 @@
 						<string>ccbResources/ccbParticleFire.png</string>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>
@@ -340,7 +338,7 @@
 		<key>physicsBody</key>
 		<dict>
 			<key>affectedByGravity</key>
-			<false/>
+			<true/>
 			<key>allowsRotation</key>
 			<false/>
 			<key>bodyShape</key>
@@ -354,7 +352,7 @@
 			<key>cornerRadius</key>
 			<real>24.29296875</real>
 			<key>density</key>
-			<real>1</real>
+			<real>2</real>
 			<key>dynamic</key>
 			<true/>
 			<key>elasticity</key>
@@ -463,6 +461,8 @@
 				<array/>
 			</dict>
 		</array>
+		<key>selected</key>
+		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>

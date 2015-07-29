@@ -11,14 +11,38 @@ import GameKit
 
 class Store: CCNode {
     
+    weak var catapultLabel: CCLabelTTF!
+    
+    weak var coinSpawnerLabel: CCLabelTTF!
+    
+    
     func didLoadFromCCB () {
-                
+        
+        catapultLabel.string = "1"
+        coinSpawnerLabel.string = "\(GameStateSingleton.sharedInstance.coinsPerSecond)"
+        
+    }
+    
+    func purchaseCatapult () {
+        
+    }
+    
+    func purchaseCoinSpawner () {
+        GameStateSingleton.sharedInstance.score -= 10
+        GameStateSingleton.sharedInstance.coinsPerSecond += 1
+        coinSpawnerLabel.string = "\(GameStateSingleton.sharedInstance.coinsPerSecond)"
     }
     
     func backToGameplay () {
         let gameplayScene = CCBReader.loadAsScene("Gameplay")
         CCDirector.sharedDirector().replaceScene(gameplayScene)
     }
+    
+    func backToProduction () {
+        let productionScene = CCBReader.loadAsScene("Production")
+        CCDirector.sharedDirector().replaceScene(productionScene)
+    }
+    
     
     func openGameCenter() {
         showLeaderboard()

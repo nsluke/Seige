@@ -15,7 +15,7 @@ class Gameplay: CCNode {
     //Button
     weak var fireButton:CCButton!
     //Nodes
-    weak var player:CCNode!
+    weak var catapult:CCNode!
     weak var enemy:CCNode!
     weak var gamePhysicsNode:CCPhysicsNode!
     
@@ -24,14 +24,8 @@ class Gameplay: CCNode {
     
     //Constants
     var SW = CCDirector.sharedDirector().viewSize().width
-    
-        //values
-    var score: Int! {
-        didSet{
-            GameStateSingleton.sharedInstance.score = score
-        }
-    }
-    
+
+    //Ints
     var enemyHealth: Int! {
         didSet{
             healthLabel.string = "\(enemyHealth)"
@@ -55,14 +49,7 @@ class Gameplay: CCNode {
             enemyHealth = GameStateSingleton.sharedInstance.enemyHealth
         }
         
-        if GameStateSingleton.sharedInstance.score == nil {
-            score = 0
-        } else {
-            score = GameStateSingleton.sharedInstance.score
-        }
-
         println(enemyHealth)
-        
         healthLabel.string = toString(enemyHealth)
     }
     
@@ -72,6 +59,7 @@ class Gameplay: CCNode {
     
     //button Methods
     func storeButton () {
+        
         
         let storeScene = CCBReader.loadAsScene("Store")
         CCDirector.sharedDirector().replaceScene(storeScene)
@@ -87,17 +75,14 @@ class Gameplay: CCNode {
         let newProjectile = CCBReader.load("Projectile") as! Projectile
         
         //set position equal to player spot
-        var projectilePosition = player.convertToWorldSpace(CGPoint(x: 100, y: 100))
+        var projectilePosition = catapult.convertToWorldSpace(CGPoint(x: 100, y: 100))
         newProjectile.position = CGPoint(x: gamePhysicsNode.position.x, y: gamePhysicsNode.position.y / 2)
         
-        player.addChild(newProjectile)
+        catapult.addChild(newProjectile)
         newProjectile.launch()
         
         let launchDirection = CGPoint(x: 1, y: 0)
         let force = ccpMult(launchDirection, 8000)
-        
-        //return newProjectile
-        score = score + 1
         
     }
     
@@ -107,9 +92,8 @@ extension Gameplay: CCPhysicsCollisionDelegate {
     //Physics
     func ccPhysicsCollisionBegin(pair: CCPhysicsCollisionPair!, projectile: CCNode!, enemy: CCNode!) -> Bool {
         println("fizzix")
-        player.removeChild(projectile)
-        enemyHealth = enemyHealth - 1
+        catapult.removeChild(projectile)
+        enemyHealth = enemyHealth - 5
         return true
     }
-    
 }

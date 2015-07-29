@@ -16,7 +16,6 @@ protocol GameCenterInteractorNotifications {
     func failedToSignIn()
 }
 
-
 class GameCenterInteractor: NSObject {
     
     // Public Variables
@@ -113,6 +112,8 @@ class GameCenterInteractor: NSObject {
             }
         })
     }
+    
+    
 }
 
 extension GameCenterInteractor:GKLocalPlayerListener

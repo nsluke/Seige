@@ -17,8 +17,8 @@ class MainScene: CCNode{
     
     //Button Methods
     func begin () {
-        let gameplayScene = CCBReader.loadAsScene("Gameplay")
-        CCDirector.sharedDirector().replaceScene(gameplayScene)
+        let productionScene = CCBReader.loadAsScene("Production")
+        CCDirector.sharedDirector().replaceScene(productionScene)
     }
     
 }

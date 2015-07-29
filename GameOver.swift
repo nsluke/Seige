@@ -19,7 +19,6 @@ class GameOver : CCNode {
         
         GameStateSingleton.sharedInstance.checkHighScore()
         
-        
     }
     
     func leaderboard () {
@@ -27,7 +26,7 @@ class GameOver : CCNode {
     }
     
     func mainMenu () {
-        let mainScene = CCBReader.loadAsScene("MainMenu")
+        let mainScene = CCBReader.loadAsScene("MainScene")
         CCDirector.sharedDirector().replaceScene(mainScene)
     }
 

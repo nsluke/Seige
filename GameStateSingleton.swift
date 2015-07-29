@@ -10,15 +10,17 @@ import UIKit
 
 class GameStateSingleton: NSObject {
     
-    var score:Int!
-//        = NSUserDefaults.standardUserDefaults().integerForKey("score") {
-//        didSet {
-//            NSUserDefaults.standardUserDefaults().setObject(score, forKey:"score")
-//            NSUserDefaults.standardUserDefaults().synchronize()
-//        }
-//    }
+    var score:Int = NSUserDefaults.standardUserDefaults().integerForKey("score") {
+        didSet {
+            NSUserDefaults.standardUserDefaults().setObject(score, forKey:"score")
+        }
+    }
     
-    
+    var coinsPerSecond: Int = NSUserDefaults.standardUserDefaults().integerForKey("coinsPerSecond") {
+        didSet {
+            NSUserDefaults.standardUserDefaults().setObject(score, forKey:"coinsPerSecond")
+        }
+    }
     
     var enemyHealth:Int!
     
