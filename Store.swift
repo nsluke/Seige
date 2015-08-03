@@ -48,6 +48,20 @@ class Store: CCNode {
         showLeaderboard()
     }
     
+    func triggerAd() {
+        
+        iAdHandler.sharedInstance.loadAds(bannerPosition: .Top)
+        iAdHandler.sharedInstance.displayBannerAd()
+        
+    }
+    
+    func triggerBanner() {
+        
+        iAdHandler.sharedInstance.loadInterstitialAd()
+        iAdHandler.sharedInstance.displayInterstitialAd()
+        
+    }
+    
 }
 
 // MARK: Game Center Handling

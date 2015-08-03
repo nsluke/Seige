@@ -107,6 +107,8 @@
 		D59567E41B41C9B1009BDD0E /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59567E31B41C9B1009BDD0E /* Projectile.swift */; };
 		D5A5D1991B5975C7006403A7 /* GameCenterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A5D1981B5975C7006403A7 /* GameCenterInteractor.swift */; };
 		D5A5D19F1B5975E2006403A7 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5A5D19D1B5975E2006403A7 /* GameKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		D5BA2B631B6FAC99005137DA /* SharingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BA2B621B6FAC99005137DA /* SharingHandler.swift */; };
+		D5BA2B671B6FACCF005137DA /* iAdHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BA2B661B6FACCF005137DA /* iAdHandler.swift */; };
 		D5D6D0E21B68572100147392 /* Production.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D6D0E11B68572100147392 /* Production.swift */; };
 /* End PBXBuildFile section */
 
@@ -251,6 +253,8 @@
 		D5A5D1981B5975C7006403A7 /* GameCenterInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCenterInteractor.swift; sourceTree = "<group>"; };
 		D5A5D19C1B5975E2006403A7 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = System/Library/Frameworks/GameController.framework; sourceTree = SDKROOT; };
 		D5A5D19D1B5975E2006403A7 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		D5BA2B621B6FAC99005137DA /* SharingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharingHandler.swift; sourceTree = "<group>"; };
+		D5BA2B661B6FACCF005137DA /* iAdHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iAdHandler.swift; sourceTree = "<group>"; };
 		D5D6D0E11B68572100147392 /* Production.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Production.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -647,6 +651,8 @@
 			children = (
 				D50313BE1B583210004031D1 /* GameStateSingleton.swift */,
 				D5A5D1981B5975C7006403A7 /* GameCenterInteractor.swift */,
+				D5BA2B621B6FAC99005137DA /* SharingHandler.swift */,
+				D5BA2B661B6FACCF005137DA /* iAdHandler.swift */,
 			);
 			name = Singletons;
 			sourceTree = "<group>";
@@ -999,6 +1005,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D59567E41B41C9B1009BDD0E /* Projectile.swift in Sources */,
+				D5BA2B631B6FAC99005137DA /* SharingHandler.swift in Sources */,
 				D57332F11B651C2700F0A8ED /* Catapult.swift in Sources */,
 				D50313BF1B583210004031D1 /* GameStateSingleton.swift in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
@@ -1006,6 +1013,7 @@
 				D5A5D1991B5975C7006403A7 /* GameCenterInteractor.swift in Sources */,
 				7A046D7919E84ED5004C4763 /* MainScene.swift in Sources */,
 				D50313BD1B583153004031D1 /* Store.swift in Sources */,
+				D5BA2B671B6FACCF005137DA /* iAdHandler.swift in Sources */,
 				D5790F6D1B56BBFF007506B9 /* Gameplay.swift in Sources */,
 				D534FC211B5FF87D000189D1 /* GameOver.swift in Sources */,
 				5B121038197487F2004C1E1D /* AppDelegate.m in Sources */,
