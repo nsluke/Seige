@@ -12,12 +12,15 @@ import GameKit
 class Store: CCNode {
     
     weak var catapultLabel: CCLabelTTF!
-    
     weak var coinSpawnerLabel: CCLabelTTF!
-    
+        
+    override func onEnter() {
+        iAdHandler.sharedInstance.loadInterstitialAd()
+        iAdHandler.sharedInstance.loadAds(bannerPosition: .Top)
+        iAdHandler.sharedInstance.displayBannerAd()
+    }
     
     func didLoadFromCCB () {
-        
         catapultLabel.string = "1"
         coinSpawnerLabel.string = "\(GameStateSingleton.sharedInstance.coinsPerSecond)"
         
@@ -43,23 +46,17 @@ class Store: CCNode {
         CCDirector.sharedDirector().replaceScene(productionScene)
     }
     
-    
     func openGameCenter() {
         showLeaderboard()
     }
     
     func triggerAd() {
-        
-        iAdHandler.sharedInstance.loadAds(bannerPosition: .Top)
-        iAdHandler.sharedInstance.displayBannerAd()
-        
+        iAdHandler.sharedInstance.displayInterstitialAd()
     }
     
     func triggerBanner() {
-        
-        iAdHandler.sharedInstance.loadInterstitialAd()
-        iAdHandler.sharedInstance.displayInterstitialAd()
-        
+        iAdHandler.sharedInstance.setBannerPosition(bannerPosition: .Top)
+        iAdHandler.sharedInstance.displayBannerAd()
     }
     
 }

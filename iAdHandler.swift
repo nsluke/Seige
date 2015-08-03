@@ -16,10 +16,11 @@ enum BannerPosition {
 class iAdHandler: NSObject {
     
     // MARK: Variables
-    
     let view = CCDirector.sharedDirector().parentViewController!.view // Returns a UIView of the cocos2d parent view controller.
     
-    var adBannerView = ADBannerView(frame: CGRect.zeroRect)
+    var newRect: CGRect = CGRectMake(CCDirector.sharedDirector().viewSize().width, CCDirector.sharedDirector().viewSize().height/6, CCDirector.sharedDirector().viewSize().width, CCDirector.sharedDirector().viewSize().height/6 )
+    
+    var adBannerView: ADBannerView!
     var bannerPosition: BannerPosition = .Top
     var isBannerDisplaying: Bool = false
     
@@ -30,6 +31,7 @@ class iAdHandler: NSObject {
     
     var closeButton: UIButton!
     
+    var width: CGFloat = CCDirector.sharedDirector().viewSize().width
     
     // MARK: Singleton
     
@@ -49,6 +51,10 @@ class iAdHandler: NSObject {
     :param: bannerPosition  the `BannerPosition` at which the ad should be positioned initially
     */
     func loadAds(#bannerPosition: BannerPosition) {
+        adBannerView = ADBannerView(frame: CGRect.zeroRect)
+//        ADBannerView
+        
+        
         self.bannerPosition = bannerPosition
         
         if bannerPosition == .Top {
@@ -62,6 +68,7 @@ class iAdHandler: NSObject {
         adBannerView.hidden = true
         adBannerView.backgroundColor = UIColor.clearColor()
         view.addSubview(adBannerView)
+
     }
     
     /**
@@ -84,13 +91,11 @@ class iAdHandler: NSObject {
             UIView.animateWithDuration(0.5, animations: {() -> Void in
                 if self.bannerPosition == .Top {
                     self.adBannerView.center = CGPoint(x: self.adBannerView.center.x, y: (self.adBannerView.frame.size.height / 2))
-                }
-                else {
+                } else {
                     self.adBannerView.center = CGPoint(x: self.adBannerView.center.x, y: self.view.bounds.size.height - (self.adBannerView.frame.size.height / 2))
                 }
             })
-        }
-        else {
+        } else {
             println("Did not display ads because banner isn't loaded yet!")
         }
     }
@@ -105,8 +110,7 @@ class iAdHandler: NSObject {
             UIView.animateWithDuration(0.5, animations: {() -> Void in
                 if self.bannerPosition == .Top {
                     self.adBannerView.center = CGPoint(x: self.adBannerView.center.x, y: -(self.adBannerView.frame.size.height / 2))
-                }
-                else {
+                } else {
                     self.adBannerView.center = CGPoint(x: self.adBannerView.center.x, y: self.view.bounds.size.height + (self.adBannerView.frame.size.height / 2))
                 }
             })
