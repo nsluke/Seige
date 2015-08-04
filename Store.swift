@@ -13,6 +13,13 @@ class Store: CCNode {
     
     weak var catapultLabel: CCLabelTTF!
     weak var coinSpawnerLabel: CCLabelTTF!
+    weak var coinsLabel: CCLabelTTF!
+    
+    var coinSpawnerCost: Int = 10 {
+        didSet{
+            coinSpawnerCost = coinSpawnerCost * 2
+        }
+    }
         
     override func onEnter() {
         iAdHandler.sharedInstance.loadInterstitialAd()
@@ -23,17 +30,27 @@ class Store: CCNode {
     func didLoadFromCCB () {
         catapultLabel.string = "1"
         coinSpawnerLabel.string = "\(GameStateSingleton.sharedInstance.coinsPerSecond)"
+        coinsLabel.string = "\(GameStateSingleton.sharedInstance.score)"
         
+        schedule("coinAddition", interval: 1.0)
+    }
+    
+    func coinAddition () {
+        GameStateSingleton.sharedInstance.score + GameStateSingleton.sharedInstance.coinsPerSecond
+        coinsLabel.string = "\(GameStateSingleton.sharedInstance.score)"
     }
     
     func purchaseCatapult () {
-        
+        GameStateSingleton.sharedInstance.score = 0
+        GameStateSingleton.sharedInstance.coinsPerSecond = 0
     }
     
     func purchaseCoinSpawner () {
-        GameStateSingleton.sharedInstance.score -= 10
-        GameStateSingleton.sharedInstance.coinsPerSecond += 1
-        coinSpawnerLabel.string = "\(GameStateSingleton.sharedInstance.coinsPerSecond)"
+        if GameStateSingleton.sharedInstance.score >= 10 {
+            GameStateSingleton.sharedInstance.score -= 10
+            GameStateSingleton.sharedInstance.coinsPerSecond += 1
+            coinSpawnerLabel.string = "\(GameStateSingleton.sharedInstance.coinsPerSecond)"
+        }
     }
     
     func backToGameplay () {

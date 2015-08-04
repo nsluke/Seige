@@ -25,27 +25,22 @@ class Production: CCNode {
     weak var coinLabel: CCLabelTTF!
     weak var coinsPerSecondLabel: CCLabelTTF!
     
+    
     func didLoadFromCCB () {
-//        if score == nil {
-//            score = 0
-//        }
-//        
-//        if coinsPerSecond == nil {
-//            coinsPerSecond = 0
-//        }
+
+        score = GameStateSingleton.sharedInstance.score
+        coinsPerSecond = GameStateSingleton.sharedInstance.coinsPerSecond
         
-//        if GameStateSingleton.sharedInstance.score == nil {
-//            score = 0
-//        } else {
-            score = GameStateSingleton.sharedInstance.score
-            coinsPerSecond = GameStateSingleton.sharedInstance.coinsPerSecond
-//        }
+        schedule("tickCoinsPerSecond", interval: 1.0)
     }
     
     override func fixedUpdate (delta: CCTime) {
-        score = score + coinsPerSecond
+        //Consider using this function.
     }
     
+    func tickCoinsPerSecond() {
+        score = score + coinsPerSecond
+    }
     
     func tap () {
         score = score + 1
@@ -56,6 +51,8 @@ class Production: CCNode {
         
         let storeScene = CCBReader.loadAsScene("Store")
         CCDirector.sharedDirector().replaceScene(storeScene)
+        unschedule("tickCoinsPerSecond")
+
     }
     
     func seige () {
@@ -63,6 +60,7 @@ class Production: CCNode {
         
         let gameplayScene = CCBReader.loadAsScene("Gameplay")
         CCDirector.sharedDirector().replaceScene(gameplayScene)
+        unschedule("tickCoinsPerSecond")
     }
     
 }
