@@ -72,8 +72,12 @@ class Store: CCNode {
     }
     
     func triggerBanner() {
-        iAdHandler.sharedInstance.setBannerPosition(bannerPosition: .Top)
-        iAdHandler.sharedInstance.displayBannerAd()
+//        iAdHandler.sharedInstance.setBannerPosition(bannerPosition: .Top)
+//        iAdHandler.sharedInstance.displayBannerAd()
+        iAdHelper.sharedHelper()
+        iAdHelper.setBannerPosition(BOTTOM)
+
+//        iAdHelper.sharedHelper().displayBannerAd()
     }
     
 }

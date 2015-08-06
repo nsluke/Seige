@@ -110,6 +110,7 @@
 		D5BA2B631B6FAC99005137DA /* SharingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BA2B621B6FAC99005137DA /* SharingHandler.swift */; };
 		D5BA2B671B6FACCF005137DA /* iAdHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BA2B661B6FACCF005137DA /* iAdHandler.swift */; };
 		D5D6D0E21B68572100147392 /* Production.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D6D0E11B68572100147392 /* Production.swift */; };
+		D5ED66251B729EE400BC76A8 /* iAdHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ED66241B729EE400BC76A8 /* iAdHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -256,6 +257,8 @@
 		D5BA2B621B6FAC99005137DA /* SharingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharingHandler.swift; sourceTree = "<group>"; };
 		D5BA2B661B6FACCF005137DA /* iAdHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iAdHandler.swift; sourceTree = "<group>"; };
 		D5D6D0E11B68572100147392 /* Production.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Production.swift; sourceTree = "<group>"; };
+		D5ED66231B729EE400BC76A8 /* iAdHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iAdHelper.h; sourceTree = "<group>"; };
+		D5ED66241B729EE400BC76A8 /* iAdHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iAdHelper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -653,6 +656,8 @@
 				D5A5D1981B5975C7006403A7 /* GameCenterInteractor.swift */,
 				D5BA2B621B6FAC99005137DA /* SharingHandler.swift */,
 				D5BA2B661B6FACCF005137DA /* iAdHandler.swift */,
+				D5ED66231B729EE400BC76A8 /* iAdHelper.h */,
+				D5ED66241B729EE400BC76A8 /* iAdHelper.m */,
 			);
 			name = Singletons;
 			sourceTree = "<group>";
@@ -1008,6 +1013,7 @@
 				D5BA2B631B6FAC99005137DA /* SharingHandler.swift in Sources */,
 				D57332F11B651C2700F0A8ED /* Catapult.swift in Sources */,
 				D50313BF1B583210004031D1 /* GameStateSingleton.swift in Sources */,
+				D5ED66251B729EE400BC76A8 /* iAdHelper.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
 				D5D6D0E21B68572100147392 /* Production.swift in Sources */,
 				D5A5D1991B5975C7006403A7 /* GameCenterInteractor.swift in Sources */,
