@@ -8,6 +8,7 @@
 
 import UIKit
 import GameKit
+import StoreKit
 
 class Store: CCNode {
     
@@ -74,10 +75,17 @@ class Store: CCNode {
     func triggerBanner() {
 //        iAdHandler.sharedInstance.setBannerPosition(bannerPosition: .Top)
 //        iAdHandler.sharedInstance.displayBannerAd()
-        iAdHelper.sharedHelper()
-        iAdHelper.setBannerPosition(BOTTOM)
-
-//        iAdHelper.sharedHelper().displayBannerAd()
+        
+        if GameStateSingleton.sharedInstance.adsEnabled == true {
+            iAdHelper.sharedHelper()
+            iAdHelper.setBannerPosition(BOTTOM)
+            GameStateSingleton.sharedInstance.adsEnabled = false
+        } else {
+            iAdHelper.sharedHelper()
+            iAdHelper.setBannerPosition(BOTTOM)
+            iAdHelper.closeBannerView(iAdHelper.sharedHelper().bannerView)
+            GameStateSingleton.sharedInstance.adsEnabled = true
+        }
     }
     
 }
@@ -95,6 +103,27 @@ extension Store: GKGameCenterControllerDelegate {
     // Delegate methods
     func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController!) {
         gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+}
+
+extension Store: SKProductsRequestDelegate {
+
+    func productsRequest(request: SKProductsRequest!, didReceiveResponse response: SKProductsResponse!) {
+        var count: Int = response.products.count
+        if (count > 0) {
+            var validProducts = response.products
+            var product = validProducts[0] as! SKProduct
+            buyProduct(product)
+        } else {
+            //something went wrong with lookup, try again?
+        }
+    }
+    
+    func buyProduct(product: SKProduct) {
+        var payment = SKPayment(product: product)
+        SKPaymentQueue.defaultQueue().addTransactionObserver()
+        SKPaymentQueue.defaultQueue().addPayment(payment)
     }
     
 }

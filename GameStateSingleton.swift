@@ -22,6 +22,12 @@ class GameStateSingleton: NSObject {
         }
     }
     
+    var adsEnabled: Bool = NSUserDefaults.standardUserDefaults().boolForKey("adsEnabled") {
+        didSet {
+            NSUserDefaults.standardUserDefaults().setObject(score, forKey:"adsEnabled")
+        }
+    }
+    
     var enemyHealth:Int!
     
     class var sharedInstance : GameStateSingleton {

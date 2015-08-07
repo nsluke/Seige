@@ -29,11 +29,17 @@ bannerPosition theBannerPosition;
 }
 
 + (void)setBannerPosition:(bannerPosition)bannerPos{
-    theBannerPosition=bannerPos;
+    theBannerPosition = bannerPos;
 }
 
 + (bannerPosition)getBannerPosition{
     return theBannerPosition;
+}
+
++ (void) closeBannerView: (ADBannerView*) _bannerView {
+    [_bannerView removeFromSuperview];
+    _bannerView.delegate = nil;
+//    [_bannerView
 }
 
 #pragma mark - Initializer
@@ -88,7 +94,7 @@ bannerPosition theBannerPosition;
     CGRect bannerFrame = _bannerView.frame;
     if (_bannerView.bannerLoaded) {
         contentFrame.size.height -= _bannerView.frame.size.height;
-        if(theBannerPosition == BOTTOM){
+        if (theBannerPosition == BOTTOM){
           bannerFrame.origin.y = contentFrame.size.height;
         } else {
         bannerFrame.origin.y = 0;

@@ -28,6 +28,7 @@ typedef enum bannerPositionTypes
 +(id) sharedHelper;
 + (void)setBannerPosition:(bannerPosition)bannerPositionTypes;
 + (bannerPosition)getBannerPosition;
++ (void)closeBannerView: (ADBannerView*)_bannerView;
 
 
 @property (atomic, retain) ADBannerView* bannerView;
