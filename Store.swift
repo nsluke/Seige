@@ -67,7 +67,7 @@ class Store: CCNode {
     func openGameCenter() {
         showLeaderboard()
     }
-    
+    //something
     func triggerAd() {
         iAdHandler.sharedInstance.displayInterstitialAd()
     }
