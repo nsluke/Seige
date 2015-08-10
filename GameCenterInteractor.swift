@@ -100,8 +100,7 @@ class GameCenterInteractor: NSObject {
     }
     
 
-    
-    func reportHighScoreToGameCenter(){
+    func reportHighScoreToGameCenter() {
         var scoreReporter = GKScore(leaderboardIdentifier: "SeigeLeaderboard")
         scoreReporter.value = Int64(GameStateSingleton.sharedInstance.score)
         var scoreArray: [GKScore] = [scoreReporter]

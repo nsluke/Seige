@@ -14,11 +14,8 @@ class GameOver : CCNode {
     weak var fireBallLabel: CCLabelTTF!
     
     func didLoadFromCCB () {
-        
         fireBallLabel.string = "\(GameStateSingleton.sharedInstance.score) Fireballs"
-        
         GameStateSingleton.sharedInstance.checkHighScore()
-        
     }
     
     func leaderboard () {

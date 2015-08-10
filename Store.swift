@@ -72,6 +72,10 @@ class Store: CCNode {
         iAdHandler.sharedInstance.displayInterstitialAd()
     }
     
+    func purchaseNoAds (){
+        
+    }
+    
     func triggerBanner() {
 //        iAdHandler.sharedInstance.setBannerPosition(bannerPosition: .Top)
 //        iAdHandler.sharedInstance.displayBannerAd()
@@ -122,7 +126,6 @@ extension Store: SKProductsRequestDelegate {
     
     func buyProduct(product: SKProduct) {
         var payment = SKPayment(product: product)
-        SKPaymentQueue.defaultQueue().addTransactionObserver()
         SKPaymentQueue.defaultQueue().addPayment(payment)
     }
     
