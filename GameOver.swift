@@ -16,6 +16,7 @@ class GameOver : CCNode {
     func didLoadFromCCB () {
         fireBallLabel.string = "\(GameStateSingleton.sharedInstance.score) Fireballs"
         GameStateSingleton.sharedInstance.checkHighScore()
+        
     }
     
     func leaderboard () {

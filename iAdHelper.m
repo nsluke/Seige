@@ -39,7 +39,6 @@ bannerPosition theBannerPosition;
 + (void) closeBannerView: (ADBannerView*) _bannerView {
     [_bannerView removeFromSuperview];
     _bannerView.delegate = nil;
-//    [_bannerView
 }
 
 #pragma mark - Initializer

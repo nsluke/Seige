@@ -84,6 +84,8 @@ class Gameplay: CCNode {
         let launchDirection = CGPoint(x: 1, y: 0)
         let force = ccpMult(launchDirection, 8000)
         
+        newProjectile.anchorPoint = ccp(0.0,0.0)
+        
     }
     
 }

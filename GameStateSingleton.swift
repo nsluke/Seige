@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Apportable. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 class GameStateSingleton: NSObject {
     
@@ -18,13 +18,13 @@ class GameStateSingleton: NSObject {
     
     var coinsPerSecond: Int = NSUserDefaults.standardUserDefaults().integerForKey("coinsPerSecond") {
         didSet {
-            NSUserDefaults.standardUserDefaults().setObject(score, forKey:"coinsPerSecond")
+            NSUserDefaults.standardUserDefaults().setObject(coinsPerSecond, forKey:"coinsPerSecond")
         }
     }
     
     var adsEnabled: Bool = NSUserDefaults.standardUserDefaults().boolForKey("adsEnabled") {
         didSet {
-            NSUserDefaults.standardUserDefaults().setObject(score, forKey:"adsEnabled")
+            NSUserDefaults.standardUserDefaults().setObject(adsEnabled, forKey:"adsEnabled")
         }
     }
     

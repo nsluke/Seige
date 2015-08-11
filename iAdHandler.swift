@@ -79,6 +79,7 @@ class iAdHandler: NSObject {
     func setBannerPosition(#bannerPosition: BannerPosition) {
         self.bannerPosition = bannerPosition
     }
+    
     /**
     Displays the `adBannerView` with a short animation for polish.
     
@@ -94,6 +95,7 @@ class iAdHandler: NSObject {
                 } else {
                     self.adBannerView.center = CGPoint(x: self.adBannerView.center.x, y: self.view.bounds.size.height - (self.adBannerView.frame.size.height / 2))
                 }
+                
             })
         } else {
             println("Did not display ads because banner isn't loaded yet!")
