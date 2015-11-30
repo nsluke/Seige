@@ -38,10 +38,10 @@ class GameCenterInteractor: NSObject {
     func authenticationCheck() {
         if (self.localPlayer.authenticated == false) {
             //Authenticate the player
-            println("The local player is not authenticated.")
+            print("The local player is not authenticated.")
             self.authenticateLocalPlayer()
         } else {
-            println("The local player is authenticated")
+            print("The local player is authenticated")
             // Register the listener
             self.localPlayer.registerListener(self)
             
@@ -57,32 +57,32 @@ class GameCenterInteractor: NSObject {
     {
         self.delegate?.willSignIn()
         
-        self.localPlayer.authenticateHandler = {(viewController : UIViewController!, error : NSError!) -> Void in
+        self.localPlayer.authenticateHandler = {(viewController : UIViewController?, error : NSError?) -> Void in
             
             if (viewController != nil)
             {
                 dispatch_async(dispatch_get_main_queue(), {
-                    self.showAuthenticationDialogueWhenReasonable(presentingViewController: CCDirector.sharedDirector().parentViewController!, gameCenterController: viewController)
+                    self.showAuthenticationDialogueWhenReasonable(presentingViewController: CCDirector.sharedDirector().parentViewController!, gameCenterController: viewController!)
                 })
             }
                 
             else if (self.localPlayer.authenticated == true)
             {
-                println("Player is Authenticated")
+                print("Player is Authenticated")
                 self.localPlayer.registerListener(self)
                 self.delegate?.didSignIn()
             }
                 
             else
             {
-                println("User Still Not Authenticated")
+                print("User Still Not Authenticated")
                 self.delegate?.failedToSignIn()
             }
             
             if (error != nil)
             {
-                println("Failed to sign in with error:\(error.localizedDescription).")
-                self.delegate?.failedToSignInWithError(error)
+                print("Failed to sign in with error:\(error!.localizedDescription).")
+                self.delegate?.failedToSignInWithError(error!)
                 // Delegate can take necessary action. For example: present a UIAlertController with the error details.
             }
         }
@@ -92,22 +92,22 @@ class GameCenterInteractor: NSObject {
     /**
     When appropriate, this function will be called and will present the Game Center login view controller.
     
-    :param: presentingViewController The view controller that will present the game center view controller.
-    :param: gameCenterController     The game center controller.
+    - parameter presentingViewController: The view controller that will present the game center view controller.
+    - parameter gameCenterController:     The game center controller.
     */
-    func showAuthenticationDialogueWhenReasonable(#presentingViewController:UIViewController, gameCenterController:UIViewController) {
+    func showAuthenticationDialogueWhenReasonable(presentingViewController presentingViewController:UIViewController, gameCenterController:UIViewController) {
         presentingViewController.presentViewController(gameCenterController, animated: true, completion: nil)
     }
     
 
     func reportHighScoreToGameCenter() {
-        var scoreReporter = GKScore(leaderboardIdentifier: "SeigeLeaderboard")
+        let scoreReporter = GKScore(leaderboardIdentifier: "SeigeLeaderboard")
         scoreReporter.value = Int64(GameStateSingleton.sharedInstance.score)
-        var scoreArray: [GKScore] = [scoreReporter]
+        let scoreArray: [GKScore] = [scoreReporter]
         
-        GKScore.reportScores(scoreArray, withCompletionHandler: {(error : NSError!) -> Void in
+        GKScore.reportScores(scoreArray, withCompletionHandler: {(error : NSError?) -> Void in
             if error != nil {
-                println("Game Center: Score Submission Error")
+                print("Game Center: Score Submission Error")
             }
         })
     }

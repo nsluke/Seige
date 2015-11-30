@@ -10,11 +10,14 @@ import UIKit
 import GameKit
 import StoreKit
 
-class Store: CCNode {
+class Store: CCNode, SKPaymentTransactionObserver {
     
     weak var catapultLabel: CCLabelTTF!
     weak var coinSpawnerLabel: CCLabelTTF!
     weak var coinsLabel: CCLabelTTF!
+    
+    var list = [SKProduct]()
+    var p = SKProduct()
     
     var coinSpawnerCost: Int = 10 {
         didSet{
@@ -34,6 +37,17 @@ class Store: CCNode {
         coinsLabel.string = "\(GameStateSingleton.sharedInstance.score)"
         
         schedule("coinAddition", interval: 1.0)
+        
+        // Set IAPS
+//        if(SKPaymentQueue.canMakePayments()) {
+//            print("IAP is enabled, loading")
+////            let productID:NSSet = NSSet(objects: "org.cocos2d.Seige.RemoveAds")
+////            let request: SKProductsRequest = SKProductsRequest(productIdentifiers: productID as Set<NSObject>)
+////            request.delegate = self
+////            request.start()
+//        } else {
+//            print("please enable IAPS")
+//        }
     }
     
     func coinAddition () {
@@ -67,13 +81,27 @@ class Store: CCNode {
     func openGameCenter() {
         showLeaderboard()
     }
-    //something
+
     func triggerAd() {
         iAdHandler.sharedInstance.displayInterstitialAd()
     }
     
     func purchaseNoAds (){
-        
+        for product in list {
+            let prodID = product.productIdentifier
+            if (prodID == "org.cocos2d.Seige.RemoveAds") {
+                p = product
+                buyProduct()
+                break;
+            }
+        }
+    }
+    
+    func buyProduct() {
+        print("buy " + p.productIdentifier)
+        let pay = SKPayment(product: p)
+        SKPaymentQueue.defaultQueue().addTransactionObserver(self)
+        SKPaymentQueue.defaultQueue().addPayment(pay as SKPayment)
     }
     
     func triggerBanner() {
@@ -98,14 +126,14 @@ class Store: CCNode {
 extension Store: GKGameCenterControllerDelegate {
     
     func showLeaderboard() {
-        var viewController = CCDirector.sharedDirector().parentViewController!
-        var gameCenterViewController = GKGameCenterViewController()
+        let viewController = CCDirector.sharedDirector().parentViewController!
+        let gameCenterViewController = GKGameCenterViewController()
         gameCenterViewController.gameCenterDelegate = self
         viewController.presentViewController(gameCenterViewController, animated: true, completion: nil)
     }
     
     // Delegate methods
-    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController!) {
+    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController) {
         gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -113,20 +141,87 @@ extension Store: GKGameCenterControllerDelegate {
 
 extension Store: SKProductsRequestDelegate {
 
-    func productsRequest(request: SKProductsRequest!, didReceiveResponse response: SKProductsResponse!) {
-        var count: Int = response.products.count
-        if (count > 0) {
-            var validProducts = response.products
-            var product = validProducts[0] as! SKProduct
-            buyProduct(product)
-        } else {
-            //something went wrong with lookup, try again?
+    func productsRequest(request: SKProductsRequest, didReceiveResponse response: SKProductsResponse) {
+        print("product request")
+        let myProduct = response.products
+        
+        for product in myProduct {
+            print("product added")
+            print(product.productIdentifier)
+            print(product.localizedTitle)
+            print(product.localizedDescription)
+            print(product.price)
+            
+            list.append(product )
+        }
+        GameStateSingleton.sharedInstance.adsEnabled = false
+    }
+    
+    func paymentQueueRestoreCompletedTransactionsFinished(queue: SKPaymentQueue) {
+        print("transactions restored")
+        
+        var purchasedItemIDS = []
+        for transaction in queue.transactions {
+            let t: SKPaymentTransaction = transaction 
+            
+            let prodID = t.payment.productIdentifier as String
+            
+            switch prodID {
+            case "org.cocos2d.Seige.RemoveAds":
+                print("remove ads")
+            default:
+                print("IAP not setup")
+            }
+            
         }
     }
     
-    func buyProduct(product: SKProduct) {
-        var payment = SKPayment(product: product)
-        SKPaymentQueue.defaultQueue().addPayment(payment)
+    func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        print("add payment")
+        
+        for transaction:AnyObject in transactions {
+            let trans = transaction as! SKPaymentTransaction
+            print(trans.error)
+            
+            switch trans.transactionState {
+                
+            case .Purchased:
+                print("buy, ok unlock iap here")
+                print(p.productIdentifier)
+                
+                let prodID = p.productIdentifier as String
+                switch prodID {
+                case "org.cocos2d.Seige.RemoveAds":
+                    print("remove ads")
+                    self.triggerAd()
+                default:
+                    print("IAP not setup")
+                }
+                
+                queue.finishTransaction(trans)
+                break;
+                
+            case .Failed:
+                print("buy error")
+                queue.finishTransaction(trans)
+                break;
+            default:
+                print("default")
+                break;
+                
+            }
+        }
+    }
+    
+    func finishTransaction(trans:SKPaymentTransaction)
+    {
+        print("finish trans")
+        SKPaymentQueue.defaultQueue().finishTransaction(trans)
+    }
+    
+    func paymentQueue(queue: SKPaymentQueue, removedTransactions transactions: [SKPaymentTransaction])
+    {
+        print("remove trans");
     }
     
 }

@@ -33,14 +33,15 @@ class SharingHandler: UIViewController {
     
     The `defaultURL` set in at the top of `SharingHandler.swift` will be appended to the end of the post automatically.
     
-    :param: stringToPost        the `String` to post with your screenshot. See the README.md for more info.
-    :param: postWithScreenshot  `true` if you want a screenshot to be appended to the post; otherwise, `false`.
+    - parameter stringToPost:        the `String` to post with your screenshot. See the README.md for more info.
+    - parameter postWithScreenshot:  `true` if you want a screenshot to be appended to the post; otherwise, `false`.
     */
-    func postToTwitter(#stringToPost: String, postWithScreenshot: Bool) {
+    
+    func postToTwitter(stringToPost stringToPost: String, postWithScreenshot: Bool) {
         
         if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter) {
             
-            var twitterViewController: SLComposeViewController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
+            let twitterViewController: SLComposeViewController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
             twitterViewController.setInitialText(stringToPost + " \(defaultURL)")
             
             if postWithScreenshot {
@@ -51,17 +52,17 @@ class SharingHandler: UIViewController {
             twitterViewController.completionHandler = {
                 (result:SLComposeViewControllerResult) in
                 if result == .Done {
-                    println("Sharing Handler: User posted to Twitter")
+                    print("Sharing Handler: User posted to Twitter")
                 }
                 else {
-                    println("Sharing Handler: User did not post to Twitter")
+                    print("Sharing Handler: User did not post to Twitter")
                 }
             }
             
             CCDirector.sharedDirector().presentViewController(twitterViewController, animated: true, completion: nil)
         }
         else {
-            var error = UIAlertView()
+            let error = UIAlertView()
             error.title = "No Twitter Account Available"
             error.message = "You can add a Twitter account to share from in your Settings."
             error.addButtonWithTitle("OK")
@@ -78,13 +79,13 @@ class SharingHandler: UIViewController {
     
     Actually, even if you wanted to do that, Facebook recently changed their Platform Policy such that "pre-filling" the user message parameter with any content that the user didn't enter themselves (even if they are able to edit or delete that content before posting) is against their rules, so you technically aren't allowed to do that anyways.
     
-    :param: postWithScreenshot  `true` if you want a screenshot to be appended to the post; otherwise, `false`.
+    - parameter postWithScreenshot:  `true` if you want a screenshot to be appended to the post; otherwise, `false`.
     */
-    func postToFacebook(#postWithScreenshot: Bool) {
+    func postToFacebook(postWithScreenshot postWithScreenshot: Bool) {
         
         if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook) {
             
-            var facebookViewController: SLComposeViewController = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+            let facebookViewController: SLComposeViewController = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
             // THIS DOES NOT WORK (SEE ABOVE!): facebookViewController.setInitialText("Testing facebook integration!")
             facebookViewController.addURL(NSURL(string: defaultURL))
             
@@ -96,17 +97,17 @@ class SharingHandler: UIViewController {
             facebookViewController.completionHandler = {
                 (result:SLComposeViewControllerResult) in
                 if result == .Done {
-                    println("Sharing Handler: User posted to Facebook")
+                    print("Sharing Handler: User posted to Facebook")
                 }
                 else {
-                    println("Sharing Handler: User did not post to Facebook")
+                    print("Sharing Handler: User did not post to Facebook")
                 }
             }
             
             CCDirector.sharedDirector().presentViewController(facebookViewController, animated: true, completion: nil)
         }
         else {
-            var error = UIAlertView()
+            let error = UIAlertView()
             error.title = "No Facebook Account Available"
             error.message = "You can add a Facebook account to share from in your Settings."
             error.addButtonWithTitle("OK")
@@ -117,7 +118,7 @@ class SharingHandler: UIViewController {
     /**
     Used to take a screenshot of the current cocos2d scene.
     
-    :returns:  a screenshot in the form of a `UIImage`
+    - returns:  a screenshot in the form of a `UIImage`
     */
     func takeScreenshot() -> UIImage {
         CCDirector.sharedDirector().nextDeltaTimeZero = true

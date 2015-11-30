@@ -18,13 +18,10 @@ class Gameplay: CCNode {
     weak var catapult:CCNode!
     weak var enemy:CCNode!
     weak var gamePhysicsNode:CCPhysicsNode!
-    
     //Arrays
     var projectiles : [CCNode] = []
-    
     //Constants
     var SW = CCDirector.sharedDirector().viewSize().width
-
     //Ints
     var enemyHealth: Int! {
         didSet{
@@ -42,15 +39,15 @@ class Gameplay: CCNode {
     func didLoadFromCCB () {
         userInteractionEnabled = true
         gamePhysicsNode.collisionDelegate = self
-    
+        
         if GameStateSingleton.sharedInstance.enemyHealth == nil {
             enemyHealth = 100
         } else {
             enemyHealth = GameStateSingleton.sharedInstance.enemyHealth
         }
         
-        println(enemyHealth)
-        healthLabel.string = toString(enemyHealth)
+        print(enemyHealth)
+        healthLabel.string = String(enemyHealth)
     }
     
     override func update(delta: CCTime) {
@@ -59,11 +56,8 @@ class Gameplay: CCNode {
     
     //button Methods
     func storeButton () {
-        
-        
         let storeScene = CCBReader.loadAsScene("Store")
         CCDirector.sharedDirector().replaceScene(storeScene)
-        
     }
     
     func fire () {
@@ -85,15 +79,13 @@ class Gameplay: CCNode {
         let force = ccpMult(launchDirection, 8000)
         
         newProjectile.anchorPoint = ccp(0.0,0.0)
-        
     }
-    
 }
 
 extension Gameplay: CCPhysicsCollisionDelegate {
     //Physics
     func ccPhysicsCollisionBegin(pair: CCPhysicsCollisionPair!, projectile: CCNode!, enemy: CCNode!) -> Bool {
-        println("fizzix")
+        print("fizzix")
         catapult.removeChild(projectile)
         enemyHealth = enemyHealth - 5
         return true
